@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 from scipy.integrate import ode             #para parte 2
 from mpl_toolkits.mplot3d import Axes3D     #para parte 2
 
-
 #Algunos Parametros de la parte 1
 mu=1.067 #RUT=19.077.067-2
 
@@ -54,13 +53,19 @@ def get_k2(y_n, v_n, h, vdp):
     vdp_n= vdp(y_n+k1[0]/2., v_n+k1[1]/2.)
     return h*vdp_n[0], h*vdp_n[1]
 
-def rk3_step(y_n, v_n, h, f):
+def get_k3(y_n, v_n, h, vdp):
+    k1 = get_k1(y_n, v_n, h, vdp)
+    k2 = get_k2(y_n, v_n, h, vdp)
+    vdp_n= vdp(y_n-k1[0]-2*k2[0], v_n-k1[1]-2*k2[1])
+    return h*vdp_n[0], h*vdp_n[1]
+
+def rk3_step(y_n, v_n, h, vdp):
     '''
     Vital, le entregamos y_n y nos devuelve el y_{n+1}
     '''
-    k1 = get_k1(y_n, v_n, h, f)
-    k2 = get_k2(y_n, v_n, h, f)
-    k3 = get_k2(y_n, v_n, h, f)
+    k1 = get_k1(y_n, v_n, h, vdp)
+    k2 = get_k2(y_n, v_n, h, vdp)
+    k3 = get_k3(y_n, v_n, h, vdp)
 
     y_n1 = y_n+(k1[0]+4*k2[0]+k3[0])/6.0
     v_n1 = v_n+(k1[1]+4*k2[1]+k3[1])/6.0
@@ -77,7 +82,13 @@ def ecuacionlorentz(t, r):  #para la parte 2
     dz= r[0]*r[1]- beta*r[2]       #dz
     return [dx,dy,dz]
 
-'''
+###############################################
+###############################################
+####################PARTE 1####################
+###############################################
+###############################################
+
+
 ######################################
 #se setean las condiciones iniciales #
 ######################################
@@ -94,17 +105,19 @@ for i in range(n_steps-1):
     v= np.append(v,sig[1])
 
 plt.figure(1)
-plt.plot(tiempo,y)
+plt.plot(tiempo,y, label='con $\mu^*$= 1.067, $y(0)=0.1$, $v(0)=0$')
 plt.xlabel('$t[s]$', fontsize=20)
 plt.ylabel('$y(t)$', fontsize=20)
-plt.title('$y(t)$ vs t (con $\mu^*$= 1.067, $y(0)=0.1$, $v(0)=0$)', fontsize=24)
+plt.legend(loc=4)
+plt.title('$y(t)$ vs t', fontsize=24)
 plt.savefig('y_vs_t_01.png')
 
 plt.figure(2)
-plt.plot(y,v)
+plt.plot(y,v, label='con $\mu^*= 1.067$, $y(0)=0.1$, $v(0)=0$')
 plt.xlabel('$y(t)$', fontsize=20)
 plt.ylabel('$v(t)$', fontsize=20)
-plt.title('$y(t)$ vs v(t) (con $\mu^*= 1.067$, $y(0)=0.1$, $v(0)=0$)', fontsize=24)
+plt.legend(loc=4)
+plt.title('$y(t)$ vs v(t)', fontsize=24)
 plt.savefig('y_vs_v_01.png')
 
 ########################################
@@ -119,22 +132,24 @@ for i in range(n_steps-1):
     v= np.append(v,sig[1])
 
 plt.figure(3)
-plt.plot(tiempo,y)
+plt.plot(tiempo,y, label='con $\mu^*$= 1.067, $y(0)=4.0$, $v(0)=0$')
 plt.xlabel('$t[s]$', fontsize=20)
 plt.ylabel('$y(t)$', fontsize=20)
-plt.title('$y(t)$ vs t (con $\mu^*$= 1.067, $y(0)=4.0$, $v(0)=0$)', fontsize=24)
+plt.title('$y(t)$ vs t', fontsize=24)
+plt.legend(loc=4)
 plt.savefig('y_vs_t_40.png')
 
 plt.figure(4)
-plt.plot(y,v)
+plt.plot(y,v, label='con $\mu^*= 1.067$, $y(0)=4.0$, $v(0)=0$')
 plt.xlabel('$y(t)$', fontsize=20)
 plt.ylabel('$v(t)$', fontsize=20)
-plt.title('$y(t)$ vs v(t) (con $\mu^*= 1.067$, $y(0)=4.0$, $v(0)=0$)', fontsize=24)
+plt.legend(loc=4)
+plt.title('$y(t)$ vs v(t)', fontsize=24)
 plt.savefig('y_vs_v_40.png')
 
 plt.show()
 plt.draw()
-'''
+
 '''
 convertir esto en funcion si queda tiempo ^
 '''
