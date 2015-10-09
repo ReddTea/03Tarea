@@ -24,11 +24,11 @@ hacer un cambio de variable para convertir la ecuación a:
 con lo cual ahora la ecuación sólo depende de un parámetro, &mu;<sup>\*</sup>.
 Indique cuál es el cambio de variable realizado.
 
-Integre la ecuación de movimiento usando el método de Runge-Kutta de orden 2
+Integre la ecuación de movimiento usando el método de Runge-Kutta de orden 3
 visto en clase. Se pide que Ud. implemente su propia versión del algoritmo,
 describa la discretización usada y el paso de tiempo. Use
-&mu;<sup>\*</sup>=1.RRR, donde RRR son los 3 últimos dígitos de su RUT antes del
-guión.
+&mu;<sup>\*</sup>=1.RRR, donde RRR son los 3 últimos dígitos de su RUT antes
+del guión.
 
 > Nota: No olvide incluir su Nombre y RUT en el informe.
 
@@ -54,9 +54,9 @@ Lorenz. El sistema de ecuaciones es el siguiente:
 > Latex:
     ```
     \begin{flalign*}
-    \dfrac{dy}{ds} &= \sigma (y - x)\\
+    \dfrac{dx}{ds} &= \sigma (y - x)\\
     \dfrac{dy}{ds} &= x (\rho - z) - y\\
-    \dfrac{dz}{dt} &= xy - \beta z
+    \dfrac{dz}{ds} &= xy - \beta z
     \end{flalign*}
     ```
 
@@ -79,7 +79,15 @@ __Otras Notas.__
   sheet*](https://education.github.com/git-cheat-sheet-education.pdf) le puede
   ser útil. Esta vez empezaremos a evaluar el uso efectivo de `git`. Recuerde
   hacer cambios significativos pero relativamente pequeños y guardar seguido.
-  Evite hacer `commits` de código que no compila.
+  Evite hacer `commits` de código que no compila y deje mensajes que permitan
+  entender los cambios realizados.
+
+- Tambien comenzaremos a revisar su uso correcto de python. Si define una
+  función relativamente larga o con muchos parámetros, recuerde escribir el
+  *doctsring* que describa los parametros y que es lo que hace la funcion.
+  También recuerde usar nombres explicativos para las variables y las funciones.
+  El mejor nombre es aquel que permite entender que hace la funcion sin tener
+  que leer su implementacion.
 
 - La tarea se entrega como un *pull request* en github. El *pull request* debe
   incluir todos los códigos usados además de su informe.
